@@ -1,4 +1,9 @@
-def init(n):
+from typing import List
+
+# On définit des types qui permettent de rendre plus clairs la signature de nos fonctions
+Plateau = List[List[int]]
+
+def init(n: int) -> Plateau:
     """
     Renvoie la liste de la configuration initiale du plateau.
 
@@ -14,7 +19,7 @@ def init(n):
         source_init.append(i) # on ajoute chaque disque dans l'ordre croissant de taille
     return plateau_init # on retourne la liste de la configuratino initiale
 
-def nombre_disques(plateau, numtour):
+def nombre_disques(plateau: Plateau, numtour: int):
     """
     Renvoie la configuration d'une des trois tours du plateau.
 
@@ -25,7 +30,7 @@ def nombre_disques(plateau, numtour):
     """
     return len(plateau[numtour]) # renvoie la longueur de l'élément liste d'indice numtour dans la liste plateau
 
-def disque_superieur(plateau, numtour):
+def disque_superieur(plateau: Plateau, numtour: int):
     """
     Renvoie le numero du disque superieur.
 
@@ -42,7 +47,7 @@ def disque_superieur(plateau, numtour):
         # si la liste est vide on renvoit -1
         return -1
 
-def position_disque(plateau, numdisque):
+def position_disque(plateau: Plateau, numdisque: int):
     """
     Renvoie la tour ou se trouve le disque que l'on cherche.
 
@@ -58,7 +63,7 @@ def position_disque(plateau, numdisque):
                 return position # on renvoie la position de la sous liste dans laquelle se trouve le disque que l'on cherche
             position += 1 # sinon on incrémente la position
 
-def verifier_deplacement(plateau, nt1, nt2):
+def verifier_deplacement(plateau: Plateau, nt1: int, nt2: int):
     """
     Vérifie si le deplacement effectue repond aux regles du jeu.
 
@@ -83,7 +88,7 @@ def liste_gagnante(n):
         liste.append(i)
     return liste
 
-def verifier_victoire(plateau, n):
+def verifier_victoire(plateau: Plateau, n: int):
     """
     Vérifie si il y a une configuration gagnante.
     """
