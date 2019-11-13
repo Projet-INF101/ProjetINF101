@@ -25,9 +25,7 @@ def position_disque(plateau,numdisque): #fonction qui renvoie la tour ou se trou
             position += 1 #sinon on incrémente la position
 
 def verifier_deplacement(plateau,nt1,nt2): #fonction qui verifie si le deplacement effectue repond aux regles du jeu
-    if len(nt1) != 0 and (disque_superieur(plateau,nt1) < disque_superieur(plateau,nt2) or len(nt2 == 0)): #si la configuration du jeu est en accord avec les regles du jeu 
-        return True #on renvoie le booleen True
-    return False #Sinon on renvoie le booleen False
+    return len(nt1) != 0 and (disque_superieur(plateau,nt1) < disque_superieur(plateau,nt2) or len(nt2 == 0)) #si la configuration du jeu est en accord avec les regles du jeu
 
 #création d'une fonction intermediaire qui calcule la configuration que l'on doit obtenir à la fin
 def liste_gagnante(n):
@@ -37,6 +35,4 @@ def liste_gagnante(n):
     return liste
 
 def verifier_victoire(plateau, n): #fonction qui verifie si il y a une configuration gagnant
-    if len(plateau[2]) == n and plateau[2] == liste_gagnante(n): #on verifie les condition a une victoire
-        return True #si oui, on revoie le booleen True
-    return False #sinon le booleen False
+    return len(plateau[2]) == n and plateau[2] == liste_gagnante(n) #on verifie les condition a une victoire
