@@ -1,2 +1,5 @@
-def test_a():
-	assert 2 + 2 == 4
+import main
+
+def test_init():
+	plateau = main.init(4)
+	assert len(plateau) == 3
