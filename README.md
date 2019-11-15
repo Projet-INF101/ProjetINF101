@@ -4,7 +4,7 @@ Projet de fin de semestre pour l'UE dINF101. Le but est de créer un jeu de tour
 
 ## Commandes utiles
 
-Récupérer les dépendances (une fois seuleument):
+Récupérer les dépendances (une fois seuleument) :
 
 ```bash
 pip3 install -U -r requirements.txt
