@@ -1,4 +1,4 @@
-# ProjetINF101
+# ProjetINF101 [![codecov](https://codecov.io/gh/Projet-INF101/ProjetINF101/branch/master/graph/badge.svg)](https://codecov.io/gh/Projet-INF101/ProjetINF101)
 
 Projet de fin de semestre pour l'UE dINF101. Le but est de créer un jeu de tour de Hanoï en Python.
 
