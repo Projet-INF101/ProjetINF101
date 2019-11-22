@@ -1,4 +1,5 @@
 from typing import List
+from turtle import *
 
 # On définit des types qui permettent de rendre
 # plus clairs la signature de nos fonctions par la suite.
@@ -97,3 +98,67 @@ def verifier_victoire(plateau: Plateau, n: int):
     Vérifie si il y a une configuration gagnante.
     """
     return plateau[2] == liste_gagnante(n) # on vérifie les condition d'une victoire
+
+def rectangle(x, y, lon, lar, couleur = "#000000", bord = True):
+    fillcolor(couleur)
+    if not bord:
+        pencolor(couleur)
+    else:
+        pencolor("#000000")
+    gauche = x - lon / 2
+    droite = x + lon / 2
+    haut = y + lar / 2
+    bas = y - lar / 2
+    up()
+    begin_fill()
+    goto(gauche,haut)
+    down()
+    goto(droite,haut)
+    goto(droite,bas)
+    goto(gauche,bas)
+    goto(gauche,haut)
+    end_fill()
+
+LARG = 40
+HAUT = 30
+ECART = 20
+speed(0)
+bgcolor("#FCFFFC")
+pensize(5)
+tracer(10000)
+
+def long_disque(n):
+    return n * LARG
+
+def dessine_plateau(n):
+    rectangle(0, 0, long_disque(n + 1) * 3, HAUT, couleur = "#040F0F")
+    dessine_piliers(n)
+
+def dessine_piliers(n):
+    rectangle(-long_disque(n) - ECART, (n + 2) * HAUT / 2, LARG / 2, (n + 1) * HAUT, couleur = "#2D3A3A")
+    rectangle(0,                       (n + 2) * HAUT / 2, LARG / 2, (n + 1) * HAUT, couleur = "#2D3A3A")
+    rectangle(long_disque(n) + ECART,  (n + 2) * HAUT / 2, LARG / 2, (n + 1) * HAUT, couleur = "#2D3A3A")
+
+def dessine_disque(nd, plateau, n):
+    pos_x = position_disque(plateau, nd) - 1
+    pos_y = plateau[pos_x + 1].index(nd) + 1
+    rectangle(pos_x * (long_disque(n) + ECART), pos_y * HAUT, nd * LARG, HAUT, couleur = "#248232")
+    update()
+
+def efface_disque(nd, plateau, n):
+    pos_x = position_disque(plateau, nd) - 1
+    pos_y = plateau[pos_x + 1].index(nd) + 1
+    rectangle(pos_x * (long_disque(n) + ECART), pos_y * HAUT, nd * LARG, HAUT, couleur = "#FCFFFC", bord = False)
+    dessine_piliers(n)
+    dessine_plateau(n)
+    update()
+
+def dessine_config(plateau, n):
+    for tour in plateau:
+        for disque in tour:
+            dessine_disque(disque, plateau, n)
+
+def efface_tout(plateau: Plateau, n: int):
+    for tour in plateau:
+        for disque in tour:
+            efface_disque(disque, plateau, n)
