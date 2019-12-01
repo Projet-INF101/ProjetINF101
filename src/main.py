@@ -162,3 +162,69 @@ def efface_tout(plateau: Plateau, n: int):
     for tour in plateau:
         for disque in tour:
             efface_disque(disque, plateau, n)
+
+### PARTIE C ###
+
+def lire_coords(plateau: Plateau) -> (int, int) :
+    dep = 3
+    while dep == 3:
+        entree = int(input("Tour de départ (entrez -1 pour abandonner) : "))
+        print(entree)
+        if 0 <= entree <= 2:
+            if len(plateau[entree]) != 0:
+                arrives_possibles = [0, 1, 2]
+                arrives_possibles.pop(entree)
+                if verifier_deplacement(plateau, entree, arrives_possibles[0]) or verifier_deplacement(plateau, entree, arrives_possibles[1]):
+                    dep = entree
+                else:
+                    print("Aucun déplacement possible depuis cette tour.")
+            else:
+                print("Tour vide, choisissez en une autre.")
+        elif entree == -1:
+            print("Abandon.")
+            return
+        else:
+            print("Entrez une valeur entre 0 et 2.")
+
+    arr = 3
+    while arr == 3:
+        entree = int(input("Tour d'arrivée : "))
+        if 0 <= entree <= 2:
+            if verifier_deplacement(plateau, dep, entree):
+                arr = entree
+                coords_ok = True
+            else:
+                print("Déplacement incorrect")
+        else:
+            print("Entrez une valeur entre 0 et 2")
+
+    return dep, arr
+
+def jouer_un_coup(plateau: Plateau, n: int) -> bool:
+    coords = lire_coords(plateau)
+    if coords == None:
+        return False # Abandon
+
+    dep, arr = coords
+    efface_disque(disque_superieur(plateau, dep), plateau, n)
+    plateau[arr].append(plateau[dep].pop())
+    dessine_config(plateau, n)
+    return True
+
+def boucle_jeu(plateau, n):
+    nb_tour = 0
+    continuer = True
+    while not(verifier_victoire(plateau,n)) or not(continuer):
+        continuer = jouer_un_coup(plateau,n)
+        nb_tour += 1
+    return nb_tour
+
+if __name__ == "__main__":
+    print("Bonjour ! Bienvenue dans le jeu des tours de Hanoï.")
+    n = int(input("Avec combien de disques voulez vous jouer ?"))
+    plateau = init(n)
+    dessine_plateau(n)
+    dessine_config(plateau, n)
+    boucle_jeu(plateau, n)
+def function():
+    pass
