@@ -2,6 +2,7 @@ from typing import List
 from turtle import *
 from copy import deepcopy
 import pickle
+import time
 
 # On définit des types qui permettent de rendre
 # plus clairs la signature de nos fonctions par la suite.
@@ -260,6 +261,21 @@ def boucle_jeu(plateau, n):
             sauvegarde.close()
     return nb_tour
 
+def solution(n, source, aux, dest):
+    if n == 1:
+        return [ (source, dest) ]
+    else:
+      return (solution(n - 1, source, dest, aux) +
+             [ (source, dest) ] +
+             solution(n - 1, aux, source, dest))
+
+def afficher_solution(plateau, n, coups):
+    for dep, arr in coups:
+        efface_disque(disque_superieur(plateau, dep), plateau, n)
+        plateau[arr].append(plateau[dep].pop())
+        dessine_config(plateau, n)
+        time.sleep(1)
+
 if __name__ == "__main__":
     print("Bonjour ! Bienvenue dans le jeu des tours de Hanoï.")
     if input("Charger la sauvegarde ?").lower() == "oui":
@@ -274,3 +290,6 @@ if __name__ == "__main__":
     dessine_plateau(n)
     dessine_config(plateau, n)
     boucle_jeu(plateau, n)
+    if input("Afficher la solution ?").lower() == "oui":
+        sol = solution(n, 0, 1, 2)
+        afficher_solution(init(n), n, sol)
