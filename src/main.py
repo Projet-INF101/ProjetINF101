@@ -1,5 +1,7 @@
 from typing import List
 from turtle import *
+from copy import deepcopy
+import pickle
 
 # On définit des types qui permettent de rendre
 # plus clairs la signature de nos fonctions par la suite.
@@ -192,7 +194,6 @@ def lire_coords(plateau: Plateau) -> (int, int) :
         if 0 <= entree <= 2:
             if verifier_deplacement(plateau, dep, entree):
                 arr = entree
-                coords_ok = True
             else:
                 print("Déplacement incorrect")
         else:
@@ -211,20 +212,65 @@ def jouer_un_coup(plateau: Plateau, n: int) -> bool:
     dessine_config(plateau, n)
     return True
 
+def dernier_coup(coups, derniercoup):
+    coup2 = coups[derniercoup]
+    coup1 = coups[derniercoup - 1]
+
+    len_config2 = []
+    len_config1 = []
+
+    tour_depart = None
+    tour_arrive = None
+
+    for i in coup2:
+        len_config2.append(len(i))
+    for j in coup1:
+        len_config1.append(len(j))
+
+    for l in range(3):
+        if len_config2[l] < len_config1[l]:
+            tour_depart = l
+        if len_config2[l] > len_config1[l]:
+            tour_arrive = l
+
+    return tour_depart,tour_arrive
+
+def annuler_dernier_coup(coups,der_coup,n,plateau):
+        tour_depart, tour_arrive = dernier_coup(coups,der_coup)
+        del coups[der_coup]
+        efface_disque(disque_superieur(plateau, tour_arrive), plateau, n)
+        plateau[tour_depart].append(plateau[tour_arrive].pop())
+        dessine_config(plateau, n)
+
 def boucle_jeu(plateau, n):
     nb_tour = 0
     continuer = True
+    coups = { 0: deepcopy(plateau) }
     while not(verifier_victoire(plateau,n)) or not(continuer):
-        continuer = jouer_un_coup(plateau,n)
-        nb_tour += 1
+        if input("annuler le dernier coup ?").lower() == "oui":
+            annuler_dernier_coup(coups, nb_tour, n, plateau)
+        else:
+            continuer = jouer_un_coup(plateau,n)
+            coups[nb_tour + 1] = deepcopy(plateau)
+            nb_tour += 1
+
+        if input("Enregistrer ?").lower() == "oui":
+            sauvegarde = open("sauvegarde", "wb")
+            pickle.dump(coups, sauvegarde)
+            sauvegarde.close()
     return nb_tour
 
 if __name__ == "__main__":
     print("Bonjour ! Bienvenue dans le jeu des tours de Hanoï.")
-    n = int(input("Avec combien de disques voulez vous jouer ?"))
-    plateau = init(n)
+    if input("Charger la sauvegarde ?").lower() == "oui":
+        sauvegarde = open("sauvegarde", "rb")
+        coups = pickle.load(sauvegarde)
+        plateau = coups[list(coups.keys())[-1]]
+        n = len(plateau[0]) + len(plateau[1]) + len(plateau[2])
+        sauvegarde.close()
+    else:
+        n = int(input("Avec combien de disques voulez vous jouer ?"))
+        plateau = init(n)
     dessine_plateau(n)
     dessine_config(plateau, n)
     boucle_jeu(plateau, n)
-def function():
-    pass
