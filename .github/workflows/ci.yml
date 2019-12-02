@@ -11,7 +11,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install python3 python3-pip python3-tk tk-dev
+        sudo apt install xorg python3 python3-pip python3-tk tk-dev
         python3 -m pip install --upgrade pip
         python3 -m pip install --user -r requirements.txt
     - name: Lint with flake8
@@ -21,7 +21,7 @@ jobs:
         python3 -m flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        env DISPLAY=0.0 python3 -m pytest --cov=./src --cov-report term --cov-report xml:coverage.xml
+        python3 -m pytest --cov=./src --cov-report term --cov-report xml:coverage.xml
     - uses: codecov/codecov-action@v1.0.3
       with:
         token: ${{secrets.CODECOV}}
