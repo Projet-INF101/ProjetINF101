@@ -1,6 +1,6 @@
 from typing import List
 try:
-    from turtle import speed, up, bgcolor, fillcolor, down, goto, begin_fill, end_fill, pencolor
+    from turtle import speed, up, bgcolor, fillcolor, down, goto, begin_fill, end_fill, pencolor, pensize, update, tracer
 except ImportError:
     def speed(_):
         pass
@@ -19,6 +19,12 @@ except ImportError:
     def end_fill():
         pass
     def pencolor(_):
+        pass
+    def pensize(_):
+        pass
+    def update():
+        pass
+    def tracer(_):
         pass
 from copy import deepcopy
 import pickle
