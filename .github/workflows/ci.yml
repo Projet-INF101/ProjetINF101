@@ -8,14 +8,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.8
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install python-tk python3-tk tk-dev
+        sudo apt install python3 python3-pip python3-tk tk-dev
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Lint with flake8
