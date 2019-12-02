@@ -12,7 +12,7 @@ except ImportError:
         pass
     def down():
         pass
-    def goto(_, _):
+    def goto(_, __):
         pass
     def begin_fill():
         pass
