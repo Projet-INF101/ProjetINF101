@@ -12,7 +12,11 @@ Dépendances et modules utilisés :
 
 ## Captures d'écran
 
-TODO
+![Le menu principal](screen1.png)
+
+![Le jeu](screen2.png)
+
+![Les scores](screen3.png)
 
 ## Tests
 
@@ -32,7 +36,7 @@ pip3 install -U -r requirements.txt
 Lancer le code :
 
 ```bash
-python3 src/main.py
+python3 __init__.py
 ```
 
 Lancer les tests :
