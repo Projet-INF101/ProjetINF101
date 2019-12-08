@@ -6,9 +6,28 @@ from typing import Callable, Tuple
 try:
     from turtle import numinput, ontimer, listen, onkey, textinput
 except ImportError:
-    funcs = ["numinput", "ontimer", "listen", "onkey", "textinput"]
+    funcs = ["ontimer", "listen", "onkey", "textinput"]
     for f in funcs:
         exec("def {}(*args, **kwargs):\n    pass\n".format(f))
+
+    # Dans l'environnement de test, on fait comme si l'utilisateur
+    # entrait en boucle 5, 2, 1, 5, 1 et 2
+    def numinput(titre, msg, minval, maxval):
+        while True:
+            assert msg == "Tour de départ"
+            yield 5
+            assert msg == "Entrez une valeur entre 1 et 3."
+            yield 2
+            assert msg == "Tour vide, choisissez en une autre."
+            yield 1
+
+            assert msg == "Tour d'arrivée"
+            yield 5
+            assert msg == "Entrez une valeur entre 1 et 3."
+            yield 1
+            assert msg == "Déplacement incorrect."
+            yield 2
+
 
 from src.interface import dessine_config, efface_disque, chrono, \
     afficher_compteur
