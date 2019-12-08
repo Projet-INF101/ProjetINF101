@@ -6,7 +6,7 @@ from typing import Callable, Tuple
 try:
     from turtle import numinput, ontimer, listen, onkey, textinput
 except ImportError:
-    funcs = ["ontimer", "listen", "onkey", "textinput"]
+    funcs = ["ontimer", "listen", "onkey"]
     for f in funcs:
         exec("def {}(*args, **kwargs):\n    pass\n".format(f))
 
@@ -28,7 +28,8 @@ except ImportError:
         assert msg == messages[(x - 1) % 6]
         return res[(x - 1) % 6]
 
-
+    def textinput(titre, msg):
+        return "Zoé"
 
 from src.interface import dessine_config, efface_disque, chrono, \
     afficher_compteur
