@@ -1,7 +1,7 @@
 from menus import menu_principal
 try:
     from turtle import mainloop
-except:
+except Exception:
     def mainloop():
         pass
 
