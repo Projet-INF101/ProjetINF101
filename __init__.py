@@ -6,6 +6,6 @@ except Exception:
 
 from src.menus import menu_principal
 
-if __name__ == "src.main":
+if __name__ == "__main__":
     menu_principal()
     mainloop()
