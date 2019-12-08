@@ -12,21 +12,22 @@ except ImportError:
 
     # Dans l'environnement de test, on fait comme si l'utilisateur
     # entrait en boucle 5, 2, 1, 5, 1 et 2
+    res = [5, 2, 1, 5, 1, 2]
+    messages = [
+        "Tour de départ",
+        "Entrez une valeur entre 1 et 3.",
+        "Tour vide, choisissez en une autre.",
+        "Tour d'arrivée",
+        "Entrez une valeur entre 1 et 3.",
+        "Déplacement incorrect.",
+    ]
+    x = 0
     def numinput(titre, msg, minval, maxval):
-        while True:
-            assert msg == "Tour de départ"
-            yield 5
-            assert msg == "Entrez une valeur entre 1 et 3."
-            yield 2
-            assert msg == "Tour vide, choisissez en une autre."
-            yield 1
+        global x
+        x += 1
+        assert msg == messages[(x - 1) % 6]
+        return res[(x - 1) % 6]
 
-            assert msg == "Tour d'arrivée"
-            yield 5
-            assert msg == "Entrez une valeur entre 1 et 3."
-            yield 1
-            assert msg == "Déplacement incorrect."
-            yield 2
 
 
 from src.interface import dessine_config, efface_disque, chrono, \
