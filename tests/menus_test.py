@@ -39,3 +39,6 @@ def test_menus():
     menus.menu_principal()
     menus.afficher_scores()
     menus.ecrire_consignes()
+    menus.lancer_partie([[], [], []])
+    menus.charger_sauvegarde()
+    menus.quitter()
