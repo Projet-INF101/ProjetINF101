@@ -1,5 +1,5 @@
 from copy import deepcopy
-from typing import Optional, Tuple
+from typing import Callable, Tuple
 import pickle
 
 try:
@@ -18,12 +18,10 @@ from solution import solution, afficher_solution
 import time
 
 
-def lire_coords(plateau: Plateau) -> Optional[Tuple[int, int]]:
+def lire_coords(plateau: Plateau) -> Tuple[int, int]:
     """
     Lit et valide les coordonnées d'une tour de départ et d'une tour
     d'arrivée pour un plateau donné.
-
-    Cette fonction renvoie None si le joueur abandonne.
 
     # Paramètres
 
@@ -84,7 +82,7 @@ def jouer_un_coup(plateau: Plateau, n: int):
     dessine_config(plateau, n)
 
 
-def dernier_coup(coups: Historique, derniercoup: int) -> (int, int):
+def dernier_coup(coups: Historique, derniercoup: int) -> Tuple[int, int]:
     """
     Renvoie la tour de départ et la tour d'arrivé joué lors d'un coup donné
 
@@ -144,7 +142,7 @@ def annuler_dernier_coup(
     listen()
 
 
-def boucle_jeu(plateau: Plateau, n: int, victoire):
+def boucle_jeu(plateau: Plateau, n: int, victoire: Callable[[], None]):
     """
     Boucle de jeu principale.
 
@@ -152,6 +150,7 @@ def boucle_jeu(plateau: Plateau, n: int, victoire):
 
     - plateau : le plateau de jeu au début de la partie
     - n : le nombre de disque sur le plateau
+    - victoire : une fonction à appeler au moment de la victoire
     """
     global abandon
     abandon = False
@@ -165,7 +164,17 @@ def boucle_jeu(plateau: Plateau, n: int, victoire):
     coup(plateau, n, coups, temps_depart, victoire)()
 
 
-def reprendre_partie(coups: Historique, n: int, victoire):
+def reprendre_partie(coups: Historique, n: int, victoire: Callable[[], None]):
+    """
+    Fonction similaire à `boucle_jeu`, mais qui reprend une partie à partir
+    d'un certain point.
+
+    # Paramètres
+
+    - coups : l'historique de la partie à reprendre
+    - n : le nombre de disques de cette partie
+    - victoire : une fonction à appeler au moment de la victoire
+    """
     global abandon
     abandon = False
     temps_derniere_partie = round(
@@ -181,7 +190,14 @@ def reprendre_partie(coups: Historique, n: int, victoire):
     coup(plateau, n, coups, temps_depart, victoire)()
 
 
-def voir_solution(n):
+def voir_solution(n: int) -> Callable[[], None]:
+    """
+    Une fonction qui en génère une autre, à appeler quand on veut voir la solution.
+
+    # Paramètres
+
+    - n : le nombre de disques à afficher dans la solution
+    """
     def v():
         abandonner()
         sol = solution(n, 0, 1, 2)
@@ -196,8 +212,32 @@ malgré le code asynchrone.
 abandon = False
 
 
-def coup(plateau, n, coups, temps_depart, victoire):
+def coup(
+    plateau: Plateau,
+    n: int,
+    coups: Historique,
+    temps_depart: int,
+    victoire: Callable[[], None]
+) -> Callable[[], None]:
+    """
+    Cette fonction est une fonction qui joue un coup si on a pas encore gagné,
+    met l'affichage à jour en fonction de l'état actuel du jeu, et affiche
+    l'écran de victoire si il le faut.
+
+    Elle retourne une fonction sans paramètres que l'on peut passer à turtle.ontimer
+
+    # Paramètres
+
+    - plateau : le plateau au début de ce coup
+    - n : le nombre de disques sur le plateau
+    - coups : l'historique des coups
+    - temps_départ : l'heure de début de la partie
+    - victoire : la fonction à appeler au moment de la victoire
+    """
     def c():
+        """
+        La fonction elle-même
+        """
         if not(verifier_victoire(plateau, n)) and not abandon:
             afficher_compteur(nb_tour(coups))
             try:
@@ -239,18 +279,47 @@ def coup(plateau, n, coups, temps_depart, victoire):
     return c
 
 
-def nb_tour(coups):
+def nb_tour(coups: Historique) -> int:
+    """
+    Renvoie le nombre de tours qui ont été joués pour un historique donné.
+
+    # Paramètres
+
+    - coups : l'historique de jeu
+    """
     cles = list(coups.keys())
     cles.sort()
     return cles[-1]
 
 
-def annuler_coup(coups: Historique, der_coup: int, n: int, plateau: Plateau):
+def annuler_coup(
+    coups: Historique,
+    der_coup: int,
+    n: int,
+    plateau: Plateau
+) -> Callable[[], None]:
+    """
+    Génère une fonction qu'on peut utiliser avec turtle.onkey, pour annuler
+    un coup.
+
+    # Paramètres
+
+    - coups : l'historique des coups
+    - der_coup : le numéro du coup à annuler
+    - n : le nombre de disques sur le plateau
+    - plateau : le plateau de jeu
+    """
     def a():
+        """
+        La fonction en elle⁻même, qui ne fait qu'un seul appel à `annuler_dernier_coup`
+        """
         annuler_dernier_coup(coups, der_coup, n, plateau)
     return a
 
 
 def abandonner():
+    """
+    Une fonction qui abandonne la partie en cours.
+    """
     global abandon
     abandon = True

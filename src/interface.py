@@ -19,6 +19,7 @@ except ImportError:
     for f in funcs:
         exec("def {}(*args, **kwargs):\n    pass\n".format(f))
 
+from typing import Callable
 from plateau import Plateau, position_disque
 
 # On défini un certain nombre de constantes, pour éviter
@@ -223,7 +224,7 @@ def efface_tout(plateau: Plateau, n: int):
             efface_disque(disque, plateau, n)
 
 
-def chrono(temps: int, stop):
+def chrono(temps: int, stop: Callable[[], bool]) -> Callable[[], []]:
     """
     Fonction qui génère la fonction mettant à jour le chronomètre.
 
