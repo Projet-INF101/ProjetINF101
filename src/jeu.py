@@ -22,6 +22,7 @@ except ImportError:
         "Déplacement incorrect.",
     ]
     x = 0
+
     def numinput(titre, msg, minval, maxval):
         global x
         x += 1
@@ -213,7 +214,8 @@ def reprendre_partie(coups: Historique, n: int, victoire: Callable[[], None]):
 
 def voir_solution(n: int) -> Callable[[], None]:
     """
-    Une fonction qui en génère une autre, à appeler quand on veut voir la solution.
+    Une fonction qui en génère une autre, à appeler quand on veut voir
+    la solution.
 
     # Paramètres
 
@@ -245,7 +247,8 @@ def coup(
     met l'affichage à jour en fonction de l'état actuel du jeu, et affiche
     l'écran de victoire si il le faut.
 
-    Elle retourne une fonction sans paramètres que l'on peut passer à turtle.ontimer
+    Elle retourne une fonction sans paramètres que l'on peut passer
+    à turtle.ontimer
 
     # Paramètres
 
@@ -337,7 +340,8 @@ def annuler_coup(
     """
     def a():
         """
-        La fonction en elle⁻même, qui ne fait qu'un seul appel à `annuler_dernier_coup`
+        La fonction en elle⁻même, qui ne fait qu'un seul appel
+        à `annuler_dernier_coup`
         """
         annuler_dernier_coup(coups, der_coup, n, plateau)
     return a

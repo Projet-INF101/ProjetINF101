@@ -1,5 +1,3 @@
-import time
-
 import src.interface as interface
 
 

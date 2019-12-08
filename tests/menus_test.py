@@ -1,5 +1,3 @@
-import pytest
-
 import src.menus as menus
 
 
@@ -28,8 +26,8 @@ def test_scores_par_coup():
     classement = menus.scores_par_coup(scores)
 
     assert classement == {
-        2: [ scores[0], scores[1] ],
-        3: [ scores[2] ],
+        2: [scores[0], scores[1]],
+        3: [scores[2]],
     }
 
 

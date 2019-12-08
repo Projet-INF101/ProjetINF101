@@ -1,5 +1,3 @@
-import pytest
-
 import src.solution as sol
 
 
@@ -15,6 +13,7 @@ def test_solution():
         (1, 2),
         (0, 2),
     ]
+
 
 def test_afficher_solution():
     plateau = [[3, 2, 1], [], []]

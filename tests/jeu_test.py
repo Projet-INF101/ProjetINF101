@@ -57,6 +57,7 @@ def test_annuler_dernier_coup():
     with pytest.raises(KeyError):
         coups[2]
 
+
 def test_nb_tour():
     coups = {
         0: {
@@ -76,10 +77,12 @@ def test_nb_tour():
     n = jeu.nb_tour(coups)
     assert n == 2
 
+
 def test_abandonner():
     assert not jeu.abandon
     jeu.abandonner()
     assert jeu.abandon
+
 
 def test_annuler_coup():
     coups = {
@@ -109,6 +112,7 @@ vict = False
 def test_boucle_jeu():
     global vict
     vict = False
+
     def victoire():
         global vict
         vict = True
@@ -119,6 +123,7 @@ def test_boucle_jeu():
 def test_reprendre_partie():
     global vict
     vict = False
+
     def victoire():
         global vict
         vict = True
