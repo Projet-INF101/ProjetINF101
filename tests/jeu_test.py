@@ -5,8 +5,8 @@ import src.jeu as jeu
 
 def test_lire_coord():
     dep, arr = jeu.lire_coords([[3, 2, 1], [], []])
-    assert dep == 1
-    assert arr == 2
+    assert dep == 0
+    assert arr == 1
 
 
 def test_jouer_un_coup():
