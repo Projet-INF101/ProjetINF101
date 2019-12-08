@@ -101,3 +101,28 @@ def test_annuler_coup():
     assert plateau == [[3, 2], [1], []]
     with pytest.raises(KeyError):
         coups[2]
+
+def test_boucle_jeu():
+    vict = False
+    def victoire():
+        vict = True
+    jeu.boucle_jeu([[], [], []], 0, victoire)
+    assert vict
+
+
+def test_reprendre_partie():
+    vict = False
+    def victoire():
+        vict = True
+    coups = {
+        0: {
+            "temps": 0,
+            "plateau": [[1], [], []]
+        },
+        1: {
+            "temps": 0,
+            "plateau": [[], [], [1]]
+        },
+    }
+    jeu.reprendre_partie(coups, 1, victoire)
+    assert vict
