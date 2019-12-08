@@ -102,17 +102,25 @@ def test_annuler_coup():
     with pytest.raises(KeyError):
         coups[2]
 
+
+vict = False
+
+
 def test_boucle_jeu():
+    global vict
     vict = False
     def victoire():
+        global vict
         vict = True
     jeu.boucle_jeu([[], [], []], 0, victoire)
     assert vict
 
 
 def test_reprendre_partie():
+    global vict
     vict = False
     def victoire():
+        global vict
         vict = True
     coups = {
         0: {
