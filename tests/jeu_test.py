@@ -4,7 +4,7 @@ import src.jeu as jeu
 
 
 def test_lire_coord():
-    dep, arr = jeu.lire_coords()
+    dep, arr = jeu.lire_coords([[3, 2, 1], [], []])
     assert dep == 1
     assert arr == 2
 
