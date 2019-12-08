@@ -1,6 +1,8 @@
 # ProjetINF101 [![codecov](https://codecov.io/gh/Projet-INF101/ProjetINF101/branch/master/graph/badge.svg)](https://codecov.io/gh/Projet-INF101/ProjetINF101)
 
-Projet de fin de semestre pour l'UE dINF101. Le but est de créer un jeu de tour de Hanoï en Python. Le sujet est disponible [ici](https://sites.google.com/site/caroleadamphd/teaching/inf101-python/projet-hanoi-v2.pdf?attredirects=0&d=1)
+Projet de fin de semestre pour l'UE d'INF101, réalisé par Hugo CRESPO et Ana GELEZ.
+Le but est de créer un jeu de tour de Hanoï en Python.
+Le sujet est disponible [ici](https://sites.google.com/site/caroleadamphd/teaching/inf101-python/projet-hanoi-v2.pdf?attredirects=0&d=1)
 
 Dépendances et modules utilisés :
 
