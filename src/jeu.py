@@ -1,6 +1,7 @@
 from copy import deepcopy
-from typing import Callable, Tuple
 import pickle
+import time
+from typing import Callable, Tuple
 
 try:
     from turtle import numinput, ontimer, listen, onkey, textinput
@@ -9,13 +10,12 @@ except ImportError:
     for f in funcs:
         exec("def {}(*args, **kwargs):\n    pass\n".format(f))
 
-from plateau import Plateau, Historique, verifier_victoire, \
-    verifier_deplacement, disque_superieur, init
-from interface import dessine_config, efface_disque, chrono, \
+from src.interface import dessine_config, efface_disque, chrono, \
     afficher_compteur
-from scores import sauver_score
-from solution import solution, afficher_solution
-import time
+from src.plateau import Plateau, Historique, verifier_victoire, \
+    verifier_deplacement, disque_superieur, init
+from src.scores import sauver_score
+from src.solution import solution, afficher_solution
 
 
 def lire_coords(plateau: Plateau) -> Tuple[int, int]:

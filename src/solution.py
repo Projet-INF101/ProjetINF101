@@ -1,7 +1,8 @@
-from typing import List, Tuple
-from plateau import Plateau, disque_superieur
-from interface import efface_disque, dessine_config
 import time
+from typing import List, Tuple
+
+from src.interface import efface_disque, dessine_config
+from src.plateau import Plateau, disque_superieur
 
 
 def solution(n: int, src: int, aux: int, dest: int) -> List[Tuple[int, int]]:

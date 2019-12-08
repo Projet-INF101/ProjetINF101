@@ -1,3 +1,6 @@
+import pickle
+from typing import Any, Dict, List, Optional, Tuple
+
 # Même astuce que dans interface.py pour les imports
 try:
     from turtle import up, goto, pencolor, update, clear, write, \
@@ -10,12 +13,10 @@ except ImportError:
     for f in funcs:
         exec("def {}(*args, **kwargs):\n    pass\n".format(f))
 
-import pickle
-from typing import Any, Dict, List, Optional, Tuple
-from interface import FONT_TITRE, FONT, dessine_plateau, dessine_config
-from scores import lire_scores
-from plateau import Plateau, init
-from jeu import boucle_jeu, abandonner
+from src.interface import FONT_TITRE, FONT, dessine_plateau, dessine_config
+from src.jeu import boucle_jeu, abandonner
+from src.plateau import Plateau, init
+from src.scores import lire_scores
 
 
 def nouveau_menu() -> Tuple[int, int]:
