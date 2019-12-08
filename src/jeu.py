@@ -288,6 +288,8 @@ def coup(
         elif not abandon:
             temps = (time.time() - temps_depart) * 1000
             nb_coup = nb_tour(coups)
+            if nb_coup == 0:
+                nb_coup = 1
             sauver_score(
                 textinput("Vous avez gagné !", "Quel est votre nom ?"),
                 nb_coup,
@@ -309,7 +311,10 @@ def nb_tour(coups: Historique) -> int:
     """
     cles = list(coups.keys())
     cles.sort()
-    return cles[-1]
+    try:
+        return cles[-1]
+    except Exception:
+        return 0
 
 
 def annuler_coup(
